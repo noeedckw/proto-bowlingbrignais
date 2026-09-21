@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karaoké, quiz, blindtest — Bowling de l'Ouest Lyonnais · Variante 3</title>
+<meta name="description" content="Prototype de refonte — page karaoké, direction scène, navigation en bas type application.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+/* ===========================================================
+   VARIANTE 3 — « Scène »
+   Navigation : barre fixe en bas, façon application
+   =========================================================== */
+:root{
+  --violet:#2a0a52;
+  --violet-2:#3d0f77;
+  --magenta:#e6008a;
+  --lime:#c8fa3c;
+  --paper:#fff6fd;
+  --muted:#c3a8dd;
+  --line:rgba(255,255,255,.16);
+  --dock-h:78px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--violet);color:var(--paper);
+  font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.6;
+  padding-bottom:calc(var(--dock-h) + 18px);-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Archivo Black",system-ui,sans-serif;font-weight:400;line-height:1;margin:0;text-transform:uppercase}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.wrap{width:min(1100px,90vw);margin-inline:auto}
+.proto-switch{bottom:calc(var(--dock-h) + 22px)}
+
+/* ---------- En-tête minimal ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px 0;border-bottom:1px solid var(--line);
+}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(1100px,90vw)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand__mark{width:38px;height:38px;background:var(--lime);border-radius:11px;display:grid;place-items:center;color:#1a0433;font-family:"Archivo Black";font-size:14px}
+.brand__name{font-family:"Archivo Black";font-size:14px;letter-spacing:.02em;text-transform:uppercase}
+.brand__name span{display:block;font-family:"Archivo";font-weight:500;font-size:11.5px;text-transform:none;color:var(--muted)}
+.topbar__tel{
+  text-decoration:none;font-weight:700;font-size:15px;background:var(--magenta);color:#fff;
+  padding:10px 18px;border-radius:999px;white-space:nowrap;
+}
+
+/* ---------- Héros ---------- */
+.hero{padding:clamp(40px,7vw,80px) 0 clamp(30px,5vw,60px)}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+.hero h1{font-size:clamp(3rem,8.5vw,6.2rem);letter-spacing:-.02em}
+.hero h1 mark{background:var(--lime);color:#1a0433;padding:0 .12em;border-radius:6px}
+.hero p{font-size:clamp(1.02rem,2.3vw,1.25rem);color:#ecdcf7;max-width:44ch;margin:20px 0 26px}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:15.5px;padding:15px 26px;border-radius:14px}
+.btn--main{background:var(--lime);color:#1a0433}
+.btn--ghost{border:2px solid var(--line);color:#fff}
+.btn--ghost:hover{border-color:var(--lime);color:var(--lime)}
+.hero__media .ph{height:min(46vh,400px);border-radius:24px;background-color:#38106b}
+.hero__media .ph span{color:#b58ddb}
+
+/* ---------- Formules ---------- */
+section{padding:clamp(44px,6vw,80px) 0}
+.head{margin-bottom:30px;max-width:56ch}
+.head h2{font-size:clamp(1.9rem,5vw,3rem)}
+.head p{color:var(--muted);margin:12px 0 0}
+.decks{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.deck{
+  background:var(--violet-2);border-radius:22px;overflow:hidden;
+  display:flex;flex-direction:column;border:1px solid var(--line);
+}
+.deck .ph{height:180px;background-color:#4a1590}
+.deck .ph span{color:#c49df0}
+.deck__body{padding:20px}
+.deck h3{font-size:1.3rem;margin-bottom:10px}
+.deck p{margin:0;font-size:15px;color:#e3d2f2}
+.deck__tag{
+  display:inline-block;margin-top:14px;font-size:12.5px;font-weight:700;
+  background:rgba(200,250,60,.16);color:var(--lime);padding:6px 11px;border-radius:999px;
+}
+.deck--hot{background:linear-gradient(170deg,var(--magenta),#8a0f78);border-color:transparent}
+.deck--hot .ph{background-color:#b8006f}
+.deck--hot .deck__tag{background:rgba(0,0,0,.25);color:#fff}
+
+/* ---------- Bandeau réservation ---------- */
+.book{background:var(--lime);color:#1a0433;border-radius:26px;padding:clamp(26px,4vw,44px);display:grid;grid-template-columns:1.3fr .7fr;gap:26px;align-items:center}
+.book h2{font-size:clamp(1.7rem,4.2vw,2.6rem)}
+.book p{margin:12px 0 0;font-size:16px;color:#331057}
+.book .btn--main{background:#1a0433;color:var(--lime)}
+
+/* ---------- Questions ---------- */
+.faq{display:grid;gap:10px;max-width:720px}
+details{background:var(--violet-2);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+details[open]{border-color:var(--lime)}
+summary{cursor:pointer;font-weight:700;font-size:16.5px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--lime);font-family:"Archivo Black"}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;color:#e3d2f2;font-size:15.5px}
+
+/* ---------- Dock de navigation ---------- */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:100;height:var(--dock-h);
+  background:rgba(26,4,51,.94);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+}
+.dock ul{
+  list-style:none;margin:0 auto;padding:0 10px;height:100%;
+  display:flex;align-items:center;justify-content:center;gap:4px;width:min(1100px,100%);
+}
+.dock li{flex:1 1 0;max-width:150px}
+.dock a{
+  display:grid;justify-items:center;gap:4px;text-decoration:none;
+  padding:10px 6px;border-radius:14px;color:#c9aee2;font-size:12.5px;font-weight:600;text-align:center;line-height:1.25;
+}
+.dock a:hover{background:rgba(255,255,255,.08);color:#fff}
+.dock a[aria-current="page"]{color:var(--lime);background:rgba(200,250,60,.12)}
+.dock__icon{font-size:19px;line-height:1}
+.dock ul{overflow-x:auto;scrollbar-width:none}
+.dock ul::-webkit-scrollbar{display:none}
+.dock li{min-width:66px}
+
+/* ---------- Pied de page ---------- */
+footer{border-top:1px solid var(--line);padding:40px 0 30px;font-size:15px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;gap:14px 30px;justify-content:space-between}
+.foot a{text-decoration:none}
+.foot a:hover{color:#fff}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .hero__grid{grid-template-columns:1fr}
+  .decks{grid-template-columns:1fr 1fr}
+  .book{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px;--dock-h:70px}
+  .decks{grid-template-columns:1fr}
+  .brand__name span{display:none}
+  .dock a{font-size:10.5px;padding:10px 4px}
+  .dock ul{justify-content:flex-start}
+  .topbar__tel{padding:9px 14px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">BO</span>
+      <span class="brand__name">Bowling de l'Ouest<span>Karaoké box · Brignais</span></span>
+    </a>
+    <a class="topbar__tel" href="tel:+33478056944">04 78 05 69 44</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <h1>Votre box,<br>votre <mark>micro</mark></h1>
+      <p>Quatre box privatisées pour chanter, deviner ou se chamailler sur un quiz. Jusqu'à 12 personnes, deux micros, 10 000 titres et personne pour vous juger.</p>
+      <div class="hero__actions">
+        <a class="btn btn--main" href="tel:+33478056944">Réserver une box</a>
+        <a class="btn btn--ghost" href="#formules">Les quatre formules</a>
+      </div>
+    </div>
+    <div class="hero__media"><div class="ph"><span>Photo — intérieur d'une box karaoké, micro en main</span></div></div>
+  </div>
+</section>
+
+<section id="formules">
+  <div class="wrap">
+    <div class="head">
+      <h2>Quatre façons d'occuper la box</h2>
+      <p>Même salle, même écran, on change simplement de mode selon l'humeur du groupe.</p>
+    </div>
+    <div class="decks">
+      <article class="deck">
+        <div class="ph"><span>Vidéo — extrait quiz musical</span></div>
+        <div class="deck__body">
+          <h3>Quiz musical</h3>
+          <p>Jusqu'à 8 joueurs en 4 équipes. Plus de 60 thèmes de pop culture, choisis à tour de rôle.</p>
+          <span class="deck__tag">Le plus bruyant</span>
+        </div>
+      </article>
+      <article class="deck deck--hot">
+        <div class="ph"><span>Vidéo — extrait blindtest</span></div>
+        <div class="deck__body">
+          <h3>Blindtest</h3>
+          <p>Trouver l'artiste, le titre, le groupe. Les variations de tempo et les malus font le reste.</p>
+          <span class="deck__tag">Le plus disputé</span>
+        </div>
+      </article>
+      <article class="deck">
+        <div class="ph"><span>Vidéo — extrait karaoké</span></div>
+        <div class="deck__body">
+          <h3>Karaoké</h3>
+          <p>12 personnes, 2 micros, 10 000 titres. Autotune et guide vocal en option, sans honte.</p>
+          <span class="deck__tag">Johnny, Jul et Céline inclus</span>
+        </div>
+      </article>
+      <article class="deck">
+        <div class="ph"><span>Vidéo — extrait formule kids</span></div>
+        <div class="deck__body">
+          <h3>Kids</h3>
+          <p>8 enfants à partir de 11 ans, 4 équipes, quiz et blindtest adaptés. Idéal pour un anniversaire.</p>
+          <span class="deck__tag">Dès 11 ans</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="book">
+      <div>
+        <h2>On réserve par téléphone</h2>
+        <p>Les box partent vite le vendredi et le samedi. Un appel suffit : on bloque le créneau, on note le nombre de joueurs et la formule.</p>
+      </div>
+      <div><a class="btn btn--main" href="tel:+33478056944">Appeler le 04 78 05 69 44</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head"><h2>Questions fréquentes</h2></div>
+    <div class="faq">
+      <details open>
+        <summary>Combien de temps dure une session ?</summary>
+        <p>Une heure par défaut, prolongeable si la box suivante est libre. On vous prévient dix minutes avant la fin.</p>
+      </details>
+      <details>
+        <summary>On peut boire et manger dans la box ?</summary>
+        <p>Oui, le service du bar passe dans les box. Pizzas et planches à commander à l'avance pour les groupes.</p>
+      </details>
+      <details>
+        <summary>Et si on est plus de 12 ?</summary>
+        <p>On ouvre deux box côte à côte ou on bascule le groupe sur une soirée privatisée, selon le jour.</p>
+      </details>
+      <details>
+        <summary>Il faut une carte bancaire pour réserver ?</summary>
+        <p>Non, la réservation se fait par téléphone sans acompte, sauf pour les groupes de plus de 20 personnes.</p>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>ZA du Brûlet, 69530 Brignais · Ouvert 7 j/7</span>
+    <span><a href="#">Mentions légales</a> · <a href="#">Nous trouver</a> · <a href="tel:+33478056944">04 78 05 69 44</a></span>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Navigation principale">
+  <ul>
+    <li><a href="index.html"><span class="dock__icon" aria-hidden="true">◆</span>Accueil</a></li>
+    <li><a href="bowling.html"><span class="dock__icon" aria-hidden="true">●</span>Bowling</a></li>
+    <li><a href="karaoke.html" aria-current="page"><span class="dock__icon" aria-hidden="true">♪</span>Karaoké &amp; quiz</a></li>
+    <li><a href="bar.html"><span class="dock__icon" aria-hidden="true">▲</span>Bar</a></li>
+    <li><a href="billard.html"><span class="dock__icon" aria-hidden="true">◎</span>Billard</a></li>
+    <li><a href="index.html#anniversaires"><span class="dock__icon" aria-hidden="true">★</span>Anniversaires</a></li>
+    <li><a href="index.html#entreprises"><span class="dock__icon" aria-hidden="true">■</span>Entreprises &amp; CE</a></li>
+  </ul>
+</nav>
+
+<script src="assets/proto.js"></script>
+</body>
+</html>

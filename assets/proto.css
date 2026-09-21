@@ -1,0 +1,107 @@
+/* ============================================================
+   Barre "prototype" — commune aux 4 variantes.
+   Sert uniquement à la démo client : à supprimer en production.
+   ============================================================ */
+
+.proto-switch {
+  position: fixed;
+  z-index: 9999;
+  right: 16px;
+  bottom: 16px;
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+.proto-switch__btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #16161a;
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.proto-switch__btn:hover { background: #26262c; }
+.proto-switch__btn:focus-visible { outline: 3px solid #ffd400; outline-offset: 2px; }
+
+.proto-switch__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+}
+
+.proto-switch__panel {
+  position: absolute;
+  right: 0;
+  bottom: 54px;
+  width: min(84vw, 300px);
+  background: #16161a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.proto-switch__panel[hidden] { display: none; }
+
+.proto-switch__title {
+  font-size: 11px;
+  color: #a1a1aa;
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.proto-switch__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+
+.proto-switch__link {
+  display: block;
+  padding: 9px 11px;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.35;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.proto-switch__link:hover { background: rgba(255, 255, 255, 0.13); }
+.proto-switch__link[aria-current="page"] { background: #ffd400; color: #111; font-weight: 700; }
+
+.proto-switch__meta { display: block; font-size: 11px; opacity: 0.68; margin-top: 2px; font-weight: 400; }
+
+/* ---- Blocs images de remplacement (placeholders) ---- */
+.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  overflow: hidden;
+  position: relative;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(128, 128, 128, 0.16) 0 12px,
+    rgba(128, 128, 128, 0.05) 12px 24px
+  );
+  background-color: rgba(128, 128, 128, 0.12);
+}
+
+.ph span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  max-width: 22ch;
+  line-height: 1.5;
+}
+
+@media print { .proto-switch { display: none; } }

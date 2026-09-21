@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bowling de l'Ouest Lyonnais — Brignais · Variante 1 (néon)</title>
+<meta name="description" content="Prototype de refonte — page d'accueil, direction néon, navigation flottante en haut.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+/* ===========================================================
+   VARIANTE 1 — « Néon nocturne »
+   Navigation : barre flottante centrée en haut
+   =========================================================== */
+:root{
+  --ink:#07060d;
+  --ink-2:#100e1c;
+  --paper:#f4f2ff;
+  --rose:#ff2d90;
+  --cyan:#25e8f0;
+  --gold:#ffd400;
+  --muted:#9d99b8;
+  --line:rgba(255,255,255,.12);
+  --nav-h:74px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:"Space Grotesk",system-ui,sans-serif;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:"Syne",system-ui,sans-serif;font-weight:800;line-height:1.02;margin:0}
+.wrap{width:min(1180px,92vw);margin-inline:auto}
+
+/* ---------- Navigation flottante ---------- */
+.nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  z-index:100;width:min(1180px,94vw);
+  display:flex;align-items:center;gap:18px;
+  padding:10px 10px 10px 18px;
+  background:rgba(16,14,28,.78);backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:999px;
+  box-shadow:0 18px 50px rgba(0,0,0,.5);
+}
+.nav__logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto}
+.nav__mark{
+  width:38px;height:38px;border-radius:10px;transform:rotate(45deg);
+  background:linear-gradient(135deg,var(--gold),#ff9d00);
+  display:grid;place-items:center;
+}
+.nav__mark b{transform:rotate(-45deg);color:#1a1405;font-family:"Syne";font-size:15px}
+.nav__name{font-family:"Syne";font-weight:800;font-size:14px;letter-spacing:.02em;line-height:1.15}
+.nav__name span{display:block;font-family:"Space Grotesk";font-weight:400;font-size:11px;color:var(--muted)}
+.nav__links{display:flex;gap:4px;margin-left:auto;list-style:none;padding:0;margin-block:0}
+.nav__links a{
+  text-decoration:none;font-size:14.5px;font-weight:500;color:#cfcbe6;
+  padding:9px 13px;border-radius:999px;display:block;
+}
+.nav__links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav__links a[aria-current="page"]{color:var(--cyan);background:rgba(37,232,240,.12)}
+.nav__cta{
+  flex:0 0 auto;text-decoration:none;font-weight:700;font-size:14.5px;
+  padding:11px 20px;border-radius:999px;background:var(--rose);color:#fff;
+  box-shadow:0 0 0 1px rgba(255,45,144,.5),0 0 26px rgba(255,45,144,.55);
+}
+.nav__burger{display:none}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+
+/* ---------- Héros ---------- */
+.hero{
+  position:relative;min-height:92vh;display:flex;align-items:flex-end;
+  padding:calc(var(--nav-h) + 40px) 0 54px;overflow:hidden;
+}
+.hero__bg{position:absolute;inset:0;z-index:0}
+.hero__bg .ph{height:100%;background-color:#14121f}
+.hero__bg .ph span{color:#6f6a90}
+.hero__bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 20% 100%,rgba(255,45,144,.34),transparent 60%),
+             radial-gradient(90% 70% at 90% 10%,rgba(37,232,240,.22),transparent 60%),
+             linear-gradient(180deg,rgba(7,6,13,.8),rgba(7,6,13,.55) 40%,rgba(7,6,13,.95));
+}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{
+  font-size:clamp(2.9rem,9.5vw,7.2rem);letter-spacing:-.02em;text-transform:uppercase;
+  text-shadow:0 0 30px rgba(255,45,144,.35);
+}
+.hero h1 em{font-style:normal;color:var(--cyan);display:block}
+.hero p{max-width:46ch;color:#d8d5ee;font-size:clamp(1rem,2.4vw,1.2rem);margin:20px 0 30px}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:999px;
+  border:1px solid transparent;font-size:15.5px;
+}
+.btn--main{background:var(--gold);color:#1a1405}
+.btn--ghost{border-color:rgba(255,255,255,.28);color:#fff}
+.btn--ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero__strip{
+  position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px 26px;
+  margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--muted);
+}
+.hero__strip b{color:var(--gold);font-weight:700}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(60px,9vw,110px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:38px}
+.head h2{font-size:clamp(1.9rem,5vw,3.2rem);text-transform:uppercase;letter-spacing:-.01em}
+.head p{margin:8px 0 0;color:var(--muted);max-width:52ch}
+.head a{color:var(--cyan);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(37,232,240,.4)}
+
+.grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+.card{
+  grid-column:span 6;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  background:linear-gradient(180deg,var(--ink-2),#0b0914);display:flex;flex-direction:column;
+}
+.card--tall{grid-column:span 6}
+.card--third{grid-column:span 4}
+.card .ph{height:230px;background-color:#181527}
+.card .ph span{color:#7a7599}
+.card__body{padding:22px 24px 26px}
+.card h3{font-size:1.5rem;text-transform:uppercase;margin-bottom:8px}
+.card p{margin:0;color:#bcb8d4;font-size:15.5px}
+.card__price{
+  display:inline-flex;align-items:baseline;gap:6px;margin-top:16px;
+  color:var(--gold);font-family:"Syne";font-weight:800;font-size:1.35rem;
+}
+.card__price small{font-family:"Space Grotesk";font-weight:400;font-size:12.5px;color:var(--muted)}
+
+/* ---------- Horaires ---------- */
+.hours{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:start}
+.hours__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.hours__list li{
+  display:flex;justify-content:space-between;gap:16px;
+  padding:14px 2px;border-bottom:1px solid var(--line);font-size:15.5px;
+}
+.hours__list li b{font-weight:500;color:#e6e3f7}
+.hours__list li span{color:var(--muted);font-variant-numeric:tabular-nums}
+.hours__list li.is-now b{color:var(--cyan)}
+.panel{
+  border:1px solid var(--line);border-radius:22px;padding:26px;
+  background:linear-gradient(160deg,rgba(255,45,144,.14),rgba(37,232,240,.08));
+}
+.panel h3{font-size:1.35rem;text-transform:uppercase;margin-bottom:10px}
+.panel p{color:#d6d3ea;font-size:15.5px}
+.panel .btn{margin-top:8px}
+
+/* ---------- Pied de page ---------- */
+footer{border-top:1px solid var(--line);padding:56px 0 110px;background:#050409}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px}
+.foot h4{font-family:"Syne";font-size:1rem;text-transform:uppercase;margin:0 0 12px}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.foot a{color:var(--muted);text-decoration:none;font-size:15px}
+.foot a:hover{color:#fff}
+.foot__tel{font-family:"Syne";font-weight:800;font-size:1.6rem;color:var(--gold);text-decoration:none;display:inline-block;margin-top:6px}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1000px){
+  .nav__links{display:none}
+  .nav__burger{
+    display:grid;place-items:center;margin-left:auto;width:44px;height:44px;border-radius:50%;
+    background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff;cursor:pointer;font-size:19px;
+  }
+  .nav.is-open .nav__links{
+    display:grid;position:absolute;top:calc(100% + 10px);left:0;right:0;
+    background:rgba(16,14,28,.96);backdrop-filter:blur(14px);
+    border:1px solid var(--line);border-radius:22px;padding:12px;gap:2px;
+  }
+  .card,.card--third,.card--tall{grid-column:span 12}
+  .hours{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .nav{padding:8px 8px 8px 12px}
+  .nav__name span{display:none}
+  .nav__cta{display:none}
+  .foot{grid-template-columns:1fr}
+  .hero{min-height:82vh}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Navigation principale">
+  <a class="nav__logo" href="index.html">
+    <span class="nav__mark" aria-hidden="true"><b>BO</b></span>
+    <span class="nav__name">Bowling de l'Ouest<span>Brignais · Lyon sud-ouest</span></span>
+  </a>
+  <button class="nav__burger" type="button" aria-expanded="false" aria-controls="navLinks">☰<span class="sr" hidden>Menu</span></button>
+  <ul class="nav__links" id="navLinks">
+    <li><a href="index.html" aria-current="page">Accueil</a></li>
+    <li><a href="bowling.html">Bowling</a></li>
+    <li><a href="karaoke.html">Karaoké &amp; quiz</a></li>
+    <li><a href="bar.html">Bar</a></li>
+    <li><a href="billard.html">Billard</a></li>
+    <li><a href="#anniversaires">Anniversaires</a></li>
+    <li><a href="#entreprises">Entreprises &amp; CE</a></li>
+  </ul>
+  <a class="nav__cta" href="tel:+33478056944">04 78 05 69 44</a>
+</nav>
+
+<header class="hero">
+  <div class="hero__bg"><div class="ph"><span>Photo — pistes de bowling éclairées, vue large</span></div></div>
+  <div class="wrap">
+    <h1>Les pistes<br>s'allument<em>à 14 h</em></h1>
+    <p>Bowling, karaoké box, billards et bar à Brignais. Une adresse pour les soirées entre amis, les anniversaires et les sorties d'équipe, à 15 minutes de Lyon.</p>
+    <div class="hero__actions">
+      <a class="btn btn--main" href="bowling.html#tarifs">Voir les tarifs du bowling</a>
+      <a class="btn btn--ghost" href="karaoke.html">Voir les karaoké box</a>
+    </div>
+    <div class="hero__strip">
+      <span><b>24</b> pistes de bowling</span>
+      <span><b>14</b> billards</span>
+      <span><b>4</b> box karaoké, quiz et blindtest</span>
+      <span>Ouvert <b>7 j/7</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="activites">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h2>Ce qu'on fait ici</h2>
+        <p>Quatre univers dans le même bâtiment. On passe de l'un à l'autre sans ressortir.</p>
+      </div>
+      <a href="bowling.html">Tous les tarifs</a>
+    </div>
+    <div class="grid">
+      <article class="card card--tall">
+        <div class="ph"><span>Photo — joueur au lancer, piste en contre-jour</span></div>
+        <div class="card__body">
+          <h3>Bowling</h3>
+          <p>24 pistes sans réservation, boules et chaussures offertes, écrans de score refaits. On joue à la partie, pas à l'heure.</p>
+          <span class="card__price">À partir de 5,90 € <small>la partie, chaussures offertes</small></span>
+        </div>
+      </article>
+      <article class="card card--tall">
+        <div class="ph"><span>Photo — box karaoké, micro et écran</span></div>
+        <div class="card__body">
+          <h3>Karaoké box</h3>
+          <p>Jusqu'à 12 personnes par box, 10 000 titres, 2 micros, autotune et guide vocal si le cœur vous en dit.</p>
+          <span class="card__price">Sur réservation <small>quiz et blindtest dans les mêmes box</small></span>
+        </div>
+      </article>
+      <article class="card card--third">
+        <div class="ph"><span>Photo — table de billard américain</span></div>
+        <div class="card__body">
+          <h3>Billard</h3>
+          <p>7 tables américaines et 7 tables de pool anglais. On paie le temps passé.</p>
+          <span class="card__price">15,00 € <small>l'heure</small></span>
+        </div>
+      </article>
+      <article class="card card--third">
+        <div class="ph"><span>Photo — comptoir du bar de nuit</span></div>
+        <div class="card__body">
+          <h3>Bar</h3>
+          <p>Cocktails avec et sans alcool, bières pression, softs. Service jusqu'à la fermeture des pistes.</p>
+          <span class="card__price">6,85 € <small>le cocktail sans alcool</small></span>
+        </div>
+      </article>
+      <article class="card card--third" id="anniversaires">
+        <div class="ph"><span>Photo — table d'anniversaire enfants</span></div>
+        <div class="card__body">
+          <h3>Anniversaires</h3>
+          <p>Formule enfant ou ado : parties, goûter ou burger, box karaoké en option. On s'occupe de la table.</p>
+          <span class="card__price">Formules dès 16 € <small>par enfant</small></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="entreprises">
+  <div class="wrap hours">
+    <div>
+      <div class="head" style="margin-bottom:24px"><div><h2>Horaires</h2><p>Dernière partie lancée 45 minutes avant la fermeture.</p></div></div>
+      <ul class="hours__list">
+        <li><b>Lundi au jeudi</b><span>14 h – 1 h</span></li>
+        <li class="is-now"><b>Vendredi</b><span>14 h – 3 h</span></li>
+        <li><b>Samedi</b><span>10 h – 3 h</span></li>
+        <li><b>Dimanche</b><span>10 h – 1 h</span></li>
+        <li><b>Vacances scolaires</b><span>10 h – 1 h tous les jours</span></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Séminaires, CE et associations</h3>
+      <p>Privatisation partielle ou totale, devis sous 48 h, facture au nom de la structure. Jusqu'à 200 personnes sur une soirée.</p>
+      <p style="margin-top:14px"><a class="btn btn--main" href="tel:+33478056944">Demander un devis</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <h4>Bowling de l'Ouest Lyonnais</h4>
+      <p style="color:var(--muted);font-size:15px;margin:0">ZA du Brûlet, 69530 Brignais<br>Parking gratuit, arrêt de bus à 3 minutes</p>
+      <a class="foot__tel" href="tel:+33478056944">04 78 05 69 44</a>
+    </div>
+    <div>
+      <h4>Activités</h4>
+      <ul>
+        <li><a href="bowling.html">Bowling</a></li>
+        <li><a href="karaoke.html">Karaoké, quiz, blindtest</a></li>
+        <li><a href="bar.html">Bar</a></li>
+        <li><a href="billard.html">Billard</a></li>
+        <li><a href="#anniversaires">Anniversaires</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Infos</h4>
+      <ul>
+        <li><a href="#entreprises">Entreprises &amp; CE</a></li>
+        <li><a href="#activites">Tarifs</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Nous trouver</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  var burger = nav.querySelector('.nav__burger');
+  burger.addEventListener('click', function () {
+    var open = nav.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

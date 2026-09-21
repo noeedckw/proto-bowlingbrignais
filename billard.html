@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billard — Bowling de l'Ouest Lyonnais</title>
+<meta name="description" content="Quatorze tables de billard, américain et pool anglais, au Bowling de l'Ouest Lyonnais à Brignais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   Direction « sobre / clair / minimaliste »
+   Papier clair, une touche de vert feutrine, serif + sans
+   Navigation : liens visibles en permanence (pas de menu caché)
+   =========================================================== */
+:root{
+  --paper:#FAFAF7;
+  --paper-2:#F1ECDF;
+  --ink:#1B1B18;
+  --muted:#6E6A5F;
+  --line:#E3DECF;
+  --accent:#3B5D46;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Inter",system-ui,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.08;margin:0;letter-spacing:-.01em}
+a{color:inherit}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{width:min(1080px,90vw);margin-inline:auto}
+
+/* ---------- En-tête ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+}
+.header-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0}
+.brand{font-family:"Fraunces";font-size:17px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.brand span{display:block;font-family:"Inter";font-weight:500;font-size:12.5px;color:var(--muted);letter-spacing:.01em;margin-top:2px}
+.nav{display:flex;gap:30px}
+.nav a{text-decoration:none;font-size:14.5px;font-weight:500;color:var(--muted);padding:5px 0;border-bottom:1px solid transparent}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tel{text-decoration:none;font-weight:600;font-size:14.5px;color:var(--accent);white-space:nowrap}
+.nav-mobile{display:none}
+
+@media (max-width:760px){
+  .nav{display:none}
+  .tel{display:none}
+  .nav-mobile{display:block}
+  .nav-mobile summary{list-style:none;cursor:pointer;font-weight:600;font-size:14.5px;padding:6px 0}
+  .nav-mobile summary::-webkit-details-marker{display:none}
+  .nav-mobile[open] summary{color:var(--accent)}
+  .nav-mobile__list{display:grid;border-top:1px solid var(--line);margin-top:10px;padding-top:6px}
+  .nav-mobile__list a{display:block;padding:11px 0;text-decoration:none;font-size:15px;color:var(--ink);border-bottom:1px solid var(--line)}
+  .nav-mobile__list a[aria-current="page"]{color:var(--accent)}
+}
+
+/* ---------- Héros ---------- */
+.hero{padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px)}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:end}
+.hero h1{font-size:clamp(2.3rem,5vw,3.8rem)}
+.hero p{max-width:46ch;color:var(--muted);margin-top:20px;font-size:1.05rem}
+.hero__actions{margin-top:30px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.btn{text-decoration:none;font-weight:600;font-size:14.5px;padding:13px 22px;border:1px solid var(--ink);border-radius:2px;color:var(--ink)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.link{text-decoration:underline;text-underline-offset:4px;font-weight:600;font-size:14.5px;color:var(--muted)}
+.link:hover{color:var(--ink)}
+.hero__meta{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px 30px;font-size:14px;color:var(--muted)}
+.hero__meta b{color:var(--ink);font-weight:600}
+.hero__figure{
+  border:1px solid var(--line);border-radius:2px;height:min(44vh,380px);
+  display:grid;place-items:center;background:var(--paper-2);
+  color:var(--muted);font-size:13.5px;text-align:center;padding:20px;
+}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(48px,7vw,88px) 0;border-top:1px solid var(--line)}
+.head{max-width:56ch;margin-bottom:36px}
+.head h2{font-size:clamp(1.7rem,4vw,2.5rem)}
+.head p{color:var(--muted);margin-top:14px}
+
+/* ---------- Les deux tables ---------- */
+.tables{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.table-panel{padding:36px;display:grid;gap:14px}
+.table-panel + .table-panel{border-left:1px solid var(--line)}
+.table-panel__count{font-family:"Fraunces";font-size:2.5rem;color:var(--ink)}
+.table-panel__count small{display:block;font-family:"Inter";font-weight:500;font-size:12.5px;color:var(--muted);margin-top:4px}
+.table-panel h3{font-size:1.25rem}
+.table-panel p{color:var(--muted)}
+.table-panel__figure{
+  height:160px;border:1px solid var(--line);border-radius:2px;background:var(--paper-2);
+  display:grid;place-items:center;color:var(--muted);font-size:12.5px;text-align:center;padding:14px;
+}
+
+/* ---------- Infos pratiques ---------- */
+.practical{background:var(--paper-2)}
+.practical .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding-block:clamp(48px,7vw,88px)}
+.practical h2{font-size:clamp(1.7rem,4vw,2.5rem)}
+.practical p{color:var(--muted);margin-top:16px;max-width:44ch}
+.price-tag{
+  display:inline-block;margin-top:24px;font-family:"Fraunces";font-size:1.4rem;color:var(--ink);
+  border:1px solid var(--ink);padding:12px 22px;border-radius:2px;
+}
+.price-tag small{display:block;font-family:"Inter";font-weight:500;font-size:12px;color:var(--muted);margin-top:2px}
+.practical__figure{
+  height:min(38vh,320px);border:1px solid var(--line);border-radius:2px;background:var(--paper);
+  display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center;padding:18px;
+}
+
+/* ---------- Pied de page ---------- */
+footer{border-top:1px solid var(--line);padding:56px 0 90px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;font-size:14.5px}
+.foot h4{font-family:"Fraunces";font-weight:500;font-size:15px;margin:0 0 14px}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.foot a{text-decoration:none;color:var(--muted)}
+.foot a:hover{color:var(--ink)}
+.foot p{color:var(--muted)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hero__grid,.practical .wrap{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .tables{grid-template-columns:1fr}
+  .table-panel + .table-panel{border-left:0;border-top:1px solid var(--line)}
+  .foot{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-in">
+    <a class="brand" href="index.html">Bowling de l'Ouest<span>Lyonnais · Brignais</span></a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="bowling.html">Bowling</a>
+      <a href="karaoke.html">Karaoké &amp; quiz</a>
+      <a href="bar.html">Bar</a>
+      <a href="billard.html" aria-current="page">Billard</a>
+    </nav>
+
+    <details class="nav-mobile">
+      <summary>Menu</summary>
+      <div class="nav-mobile__list">
+        <a href="index.html">Accueil</a>
+        <a href="bowling.html">Bowling</a>
+        <a href="karaoke.html">Karaoké &amp; quiz</a>
+        <a href="bar.html">Bar</a>
+        <a href="billard.html" aria-current="page">Billard</a>
+      </div>
+    </details>
+
+    <a class="tel" href="tel:+33478056944">04 78 05 69 44</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <h1>Quatorze tables, deux formats de jeu</h1>
+      <p>Sept billards américains pour les longues parties, sept tables de pool anglais pour un jeu plus nerveux. Queues et craie fournies, aucune réservation nécessaire en semaine.</p>
+      <div class="hero__actions">
+        <a class="btn" href="#tables">Voir les tables</a>
+        <a class="link" href="bar.html">Le bar</a>
+      </div>
+      <div class="hero__meta">
+        <span><b>14</b> billards</span>
+        <span><b>7</b> américains</span>
+        <span><b>7</b> pool anglais</span>
+        <span>Ouvert jusqu'à <b>2 h 30</b></span>
+      </div>
+    </div>
+    <div class="hero__figure"><span>Photo — salle de billard, tables alignées</span></div>
+  </div>
+</section>
+
+<section id="tables">
+  <div class="wrap">
+    <div class="head">
+      <h2>Les deux tables</h2>
+      <p>Même salle, deux formats. Queues et craie fournies au comptoir.</p>
+    </div>
+    <div class="tables">
+      <div class="table-panel">
+        <div class="table-panel__figure"><span>Photo — table de billard américain</span></div>
+        <div class="table-panel__count">7<small>tables américaines</small></div>
+        <h3>Billard américain</h3>
+        <p>Grandes tables, billes numérotées, parties plus longues. Le format classique pour les groupes qui s'installent.</p>
+      </div>
+      <div class="table-panel">
+        <div class="table-panel__figure"><span>Photo — table de pool anglais, boules placées</span></div>
+        <div class="table-panel__count">7<small>tables de pool anglais</small></div>
+        <h3>Pool anglais</h3>
+        <p>Tables plus petites, billes réduites, jeu plus rapide et plus technique. Idéal pour enchaîner les manches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="practical">
+  <div class="wrap">
+    <div>
+      <h2>Infos pratiques</h2>
+      <p>Les tables se réservent sur place, au comptoir du bar. Le service continue pendant le jeu, un verre à la main entre deux coups.</p>
+      <span class="price-tag">15,00 € l'heure<small>par table, quel que soit le nombre de joueurs</small></span>
+    </div>
+    <div class="practical__figure"><span>Photo — queue de billard et craie sur le tapis</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <h4>Bowling de l'Ouest Lyonnais</h4>
+      <p>ZA du Brûlet, 69530 Brignais<br>Parking gratuit · Ouvert 7 j/7</p>
+    </div>
+    <div>
+      <h4>Activités</h4>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="bowling.html">Bowling</a></li>
+        <li><a href="karaoke.html">Karaoké, quiz, blindtest</a></li>
+        <li><a href="bar.html">Bar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Infos</h4>
+      <ul>
+        <li><a href="#tables">Les tables</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

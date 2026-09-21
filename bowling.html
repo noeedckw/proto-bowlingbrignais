@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bowling — Bowling de l'Ouest Lyonnais · Variante 2 (clair)</title>
+<meta name="description" content="Prototype de refonte — page bowling, direction claire et éditoriale, navigation verticale à gauche.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+/* ===========================================================
+   VARIANTE 2 — « Clair éditorial »
+   Navigation : colonne verticale fixe à gauche
+   =========================================================== */
+:root{
+  --ink:#1b1a17;
+  --paper:#fbfaf7;
+  --paper-2:#f0eee7;
+  --yellow:#ffd400;
+  --blue:#1f4ed8;
+  --muted:#6f6c63;
+  --line:#e2dfd6;
+  --rail:270px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"DM Sans",system-ui,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.05;margin:0;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* ---------- Rail de navigation ---------- */
+.rail{
+  position:fixed;inset:0 auto 0 0;width:var(--rail);z-index:100;
+  background:var(--ink);color:var(--paper);
+  display:flex;flex-direction:column;padding:28px 24px;
+}
+.rail__logo{display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:44px}
+.rail__mark{width:42px;height:42px;background:var(--yellow);transform:rotate(45deg);display:grid;place-items:center;border-radius:6px}
+.rail__mark b{transform:rotate(-45deg);font-family:"Instrument Serif";font-size:17px;color:#1b1a17}
+.rail__name{font-family:"Instrument Serif";font-size:19px;line-height:1.1}
+.rail__name span{display:block;font-family:"DM Sans";font-size:11.5px;color:#a5a196;letter-spacing:.04em}
+.rail__nav{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.rail__nav a{
+  display:block;text-decoration:none;font-size:16px;color:#cdc9bd;
+  padding:11px 12px;border-radius:9px;
+}
+.rail__nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.rail__nav a[aria-current="page"]{background:var(--yellow);color:#1b1a17;font-weight:700}
+.rail__sep{height:1px;background:rgba(255,255,255,.14);margin:20px 0}
+.rail__foot{margin-top:auto;font-size:14px;color:#a5a196}
+.rail__tel{
+  display:block;font-family:"Instrument Serif";font-size:24px;color:var(--yellow);
+  text-decoration:none;margin-top:6px;
+}
+.rail__toggle{display:none}
+
+/* ---------- Corps ---------- */
+.shell{margin-left:var(--rail)}
+.wrap{width:min(960px,88%);margin-inline:auto}
+section{padding:clamp(48px,7vw,90px) 0}
+
+.hero{padding:clamp(56px,8vw,104px) 0 0}
+.hero__kicker{color:var(--blue);font-weight:700;font-size:14px;margin:0 0 14px}
+.hero h1{font-size:clamp(3rem,8vw,6rem)}
+.hero h1 i{font-style:italic;color:var(--muted)}
+.hero__lede{font-size:clamp(1.05rem,2.4vw,1.35rem);max-width:56ch;margin:22px 0 30px;color:#403e38}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:46px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:15.5px;padding:14px 24px;border-radius:8px;border:1px solid var(--ink)}
+.btn--main{background:var(--ink);color:var(--paper)}
+.btn--ghost{background:transparent}
+.btn--ghost:hover{background:var(--paper-2)}
+.hero__media .ph{height:min(48vh,420px);border-radius:14px;background-color:var(--paper-2)}
+.hero__media .ph span{color:var(--muted)}
+.hero__caption{font-size:13.5px;color:var(--muted);margin:10px 2px 0}
+
+/* ---------- Tarifs ---------- */
+.head{max-width:60ch;margin-bottom:34px}
+.head h2{font-size:clamp(2rem,5vw,3.2rem)}
+.head p{color:var(--muted);margin:12px 0 0}
+.rates{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.rates caption{text-align:left;font-size:14px;color:var(--muted);padding-bottom:12px}
+.rates th,.rates td{text-align:left;padding:15px 12px;border-bottom:1px solid var(--line);font-size:16px}
+.rates thead th{font-size:13.5px;color:var(--muted);font-weight:500;border-bottom:1px solid var(--ink)}
+.rates td:not(:first-child),.rates th:not(:first-child){text-align:right;white-space:nowrap}
+.rates tbody tr:hover{background:var(--paper-2)}
+.rates-block + .rates-block{margin-top:44px}
+.rates-block h3{font-size:1.6rem;margin-bottom:12px}
+.rates-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rates--grid{min-width:640px}
+.rates--grid th,.rates--grid td{text-align:center;white-space:normal;padding:14px 10px}
+.rates--grid th:first-child,.rates--grid td:first-child{text-align:left;white-space:nowrap}
+.rates--grid thead th{vertical-align:bottom;line-height:1.3}
+.rates--grid .is-closed{color:var(--muted);font-style:italic}
+.rates--grid tbody th{font-weight:500}
+.rates small{display:block;color:var(--muted);font-size:12.5px}
+.note{font-size:14px;color:var(--muted);margin-top:14px;max-width:62ch}
+
+/* ---------- Colonnes info ---------- */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.col h3{font-size:1.5rem;margin-bottom:8px}
+.col p{margin:0;color:#4a4841;font-size:15.5px}
+.col .ph{height:150px;border-radius:12px;margin-bottom:16px;background-color:var(--paper-2)}
+.col .ph span{color:var(--muted)}
+
+/* ---------- Bandeau ---------- */
+.band{background:var(--ink);color:var(--paper);margin-top:20px}
+.band .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:34px;align-items:center;padding-block:clamp(44px,6vw,70px)}
+.band h2{font-size:clamp(1.8rem,4.4vw,2.8rem)}
+.band p{color:#c9c5ba;margin:12px 0 0}
+.band .btn{border-color:var(--yellow);background:var(--yellow);color:var(--ink)}
+
+/* ---------- Pied de page ---------- */
+footer{border-top:1px solid var(--line);padding:46px 0 100px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px;font-size:15px}
+.foot h4{font-family:"DM Sans";font-size:12.5px;letter-spacing:.06em;color:var(--muted);margin:0 0 12px;font-weight:500}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.foot a{color:#3b3933;text-decoration:none}
+.foot a:hover{color:var(--blue)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1080px){
+  :root{--rail:0px}
+  .rail{
+    inset:0 0 auto 0;width:100%;flex-direction:row;align-items:center;
+    padding:12px 18px;gap:14px;
+  }
+  .rail__logo{margin-bottom:0}
+  .rail__sep,.rail__foot{display:none}
+  .rail__toggle{
+    display:grid;place-items:center;margin-left:auto;width:44px;height:44px;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:9px;color:#fff;font-size:19px;cursor:pointer;
+  }
+  .rail__nav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    background:var(--ink);padding:10px 14px 18px;border-top:1px solid rgba(255,255,255,.12);
+  }
+  .rail.is-open .rail__nav{display:grid}
+  .shell{margin-left:0;padding-top:70px}
+  .cols{grid-template-columns:1fr 1fr}
+  .band .wrap{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .cols{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+  .rates th,.rates td{padding:12px 6px;font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="rail" id="rail" aria-label="Navigation principale">
+  <a class="rail__logo" href="index.html">
+    <span class="rail__mark" aria-hidden="true"><b>BO</b></span>
+    <span class="rail__name">Bowling de l'Ouest<span>Brignais</span></span>
+  </a>
+  <button class="rail__toggle" type="button" aria-expanded="false" aria-controls="railNav">☰</button>
+  <ul class="rail__nav" id="railNav">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="bowling.html" aria-current="page">Bowling</a></li>
+    <li><a href="karaoke.html">Karaoké &amp; quiz</a></li>
+    <li><a href="bar.html">Bar</a></li>
+    <li><a href="billard.html">Billard</a></li>
+    <li><a href="index.html#anniversaires">Anniversaires</a></li>
+    <li><a href="index.html#entreprises">Entreprises &amp; CE</a></li>
+  </ul>
+  <div class="rail__sep"></div>
+  <div class="rail__foot">
+    Ouvert aujourd'hui jusqu'à 1 h
+    <a class="rail__tel" href="tel:+33478056944">04 78 05 69 44</a>
+  </div>
+</nav>
+
+<div class="shell">
+<header class="hero">
+  <div class="wrap">
+    <p class="hero__kicker">24 pistes · Brignais</p>
+    <h1>Une partie, <i>puis</i> une autre</h1>
+    <p class="hero__lede">Pistes rénovées, écrans de score lisibles, bumpers relevables pour les enfants. Pas de réservation : on arrive, on prend une piste libre et on joue. Location de chaussures offerte.</p>
+    <div class="hero__actions">
+      <a class="btn btn--main" href="#tarifs">Voir les tarifs</a>
+      <a class="btn btn--ghost" href="tel:+33478056944">Nous appeler</a>
+    </div>
+    <div class="hero__media">
+      <div class="ph"><span>Photo — vue d'ensemble des 24 pistes</span></div>
+      <p class="hero__caption">Les 24 pistes vues depuis le bar, un vendredi soir.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="tarifs">
+  <div class="wrap">
+    <div class="head">
+      <h2>Tarifs</h2>
+      <p>Prix TTC par partie et par personne. La location des chaussures est offerte.</p>
+    </div>
+    <div class="rates-block">
+      <h3>Tarifs publics</h3>
+      <div class="rates-scroll" tabindex="0" role="region" aria-label="Tarifs publics">
+    <table class="rates rates--grid">
+      <caption>Prix TTC par partie et par personne.</caption>
+      <thead>
+        <tr><th scope="col">Créneau</th><th scope="col">Lundi</th><th scope="col">Mardi, mercredi, jeudi</th><th scope="col">Vendredi</th><th scope="col">Samedi, dimanche</th><th scope="col">Jours fériés et veilles de fêtes après 19 h</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Avant 19 h</th><td>5,90 €</td><td>6,30 €</td><td>6,30 €</td><td>8,50 €</td><td>8,50 €</td></tr>
+        <tr><th scope="row">Après 19 h</th><td>5,90 €</td><td>7,50 €</td><td>8,50 €</td><td>8,50 €</td><td>8,50 €</td></tr>
+      </tbody>
+    </table>
+      </div>
+    </div>
+    <div class="rates-block">
+      <h3>Vacances scolaires</h3>
+      <div class="rates-scroll" tabindex="0" role="region" aria-label="Vacances scolaires">
+    <table class="rates rates--grid">
+      <caption>Prix TTC par partie et par personne.</caption>
+      <thead>
+        <tr><th scope="col">Créneau</th><th scope="col">Lundi</th><th scope="col">Mardi, mercredi, jeudi</th><th scope="col">Vendredi</th><th scope="col">Samedi, dimanche</th><th scope="col">Jours fériés et veilles de fêtes après 19 h</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">11 h – 13 h<small>sauf été</small></th><td>6,50 €</td><td>6,50 €</td><td>6,50 €</td><td class="is-closed">fermé</td><td class="is-closed">fermé</td></tr>
+        <tr><th scope="row">13 h – 19 h<small>14 h – 19 h l'été</small></th><td>7,20 €</td><td>7,20 €</td><td>7,20 €</td><td>8,50 €</td><td>8,50 €</td></tr>
+        <tr><th scope="row">Après 19 h</th><td>7,50 €</td><td>7,50 €</td><td>8,50 €</td><td>8,50 €</td><td>8,50 €</td></tr>
+      </tbody>
+    </table>
+      </div>
+    </div>
+    <p class="note">Les pistes ne se réservent pas. Une piste accueille 6 joueurs au maximum ; au-delà, on ouvre une seconde piste côte à côte pour que le groupe reste ensemble.</p>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <div class="head"><h2>Bon à savoir avant de venir</h2></div>
+    <div class="cols">
+      <article class="col">
+        <div class="ph"><span>Photo — chaussures de bowling au comptoir</span></div>
+        <h3>Chaussures</h3>
+        <p>Location offerte, du 27 au 48. Chaussettes obligatoires, en vente à l'accueil si vous les avez oubliées.</p>
+      </article>
+      <article class="col">
+        <div class="ph"><span>Photo — enfant et rampe de lancer</span></div>
+        <h3>Avec des enfants</h3>
+        <p>Bumpers et rampe de lancer sur demande, sans supplément. Il suffit de les demander à l'accueil.</p>
+      </article>
+      <article class="col">
+        <div class="ph"><span>Photo — groupe autour d'une piste</span></div>
+        <h3>En groupe</h3>
+        <p>À partir de 12 personnes, on ouvre plusieurs pistes côte à côte selon les disponibilités et on prépare l'addition à part. Pour un grand groupe, appelez-nous avant de venir.</p>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="band" id="groupes">
+  <div class="wrap">
+    <div>
+      <h2>Soirée d'entreprise, arbre de Noël, tournoi de CE</h2>
+      <p>On organise une trentaine de soirées de groupe par an. Devis sous 48 h, formule bowling seule ou avec buffet et karaoké.</p>
+    </div>
+    <div><a class="btn" href="tel:+33478056944">Parler à l'équipe</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <h4>Adresse</h4>
+      <p style="margin:0">ZA du Brûlet, 69530 Brignais<br>Parking gratuit · Ouvert 7 j/7</p>
+    </div>
+    <div>
+      <h4>Activités</h4>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="karaoke.html">Karaoké, quiz, blindtest</a></li>
+        <li><a href="bar.html">Bar</a></li>
+        <li><a href="billard.html">Billard</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Infos</h4>
+      <ul>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="index.html#entreprises">Entreprises &amp; CE</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>
+  var rail = document.getElementById('rail');
+  var toggle = rail.querySelector('.rail__toggle');
+  toggle.addEventListener('click', function () {
+    var open = rail.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>
